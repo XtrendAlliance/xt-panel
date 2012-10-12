@@ -1,4 +1,0 @@
-panel
-=====
-
-xtrend Support panel
