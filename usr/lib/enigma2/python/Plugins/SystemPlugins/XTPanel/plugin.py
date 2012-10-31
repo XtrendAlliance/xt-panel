@@ -4927,7 +4927,7 @@ global_session = None
 
 def startXTmenu(menuid):
     if menuid == 'mainmenu':
-        return [(_('XT Panel'),
+        return [(_('XTA'),
           main,
           'XTMainMenu',
           44)]
