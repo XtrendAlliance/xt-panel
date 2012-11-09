@@ -555,13 +555,6 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/sysinfo.png')),
              None,
              menuid))
-            if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.py')):
-                self.list.append(('ecminfo',
-                 _('ECM Info'),
-                 _('Show Channeldetails'),
-                 LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ecm.png')),
-                 None,
-                 menuid))
             self.list.append(('who',
              _('Show Consolesessions'),
              _('show all active user sessions'),
@@ -4927,7 +4920,7 @@ global_session = None
 
 def startXTmenu(menuid):
     if menuid == 'mainmenu':
-        return [(_('XTA'),
+        return [(_('XT Panel'),
           main,
           'XTMainMenu',
           44)]
