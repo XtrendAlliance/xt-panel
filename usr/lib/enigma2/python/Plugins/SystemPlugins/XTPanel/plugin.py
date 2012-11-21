@@ -867,8 +867,6 @@ class XTSubMenu(Screen):
                 self.session.open(XTHdd)
             elif currentEntry == 'sysinfo':
                 self.session.open(XTInfo)
-            elif currentEntry == 'bitrate':
-                self.session.open(BitrateViewer)
             elif currentEntry == 'ecm':
                 self.session.open(Console, title=_('Show ecm.info'), cmdlist=['for i in /tmp/ecm*info;do echo $i;echo ------------------------------------------------; cat $i; echo ================================================; done'])
             elif currentEntry == 'ecminfo':
@@ -3240,7 +3238,6 @@ class XTInfo(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
         self.skin_path = plugin_path
-        self.bitrate = Bitrate(session, self.refreshEvent, self.bitrateStopped)
         self['mem_labels'] = Label(_('\nTotal:\nFree:\nUsed:\nUsed(%):'))
         self['ram'] = Label()
         self['root'] = Label()
@@ -3337,7 +3334,6 @@ class XTInfo(Screen):
          '5': self.KeyFive,
          '6': self.KeySix})
         self.onLayoutFinish.append(self.updateList)
-        self.onLayoutFinish.append(self.bitrate.start)
 
     def startShow(self):
         self.smallmontxt = ''
@@ -3380,7 +3376,6 @@ class XTInfo(Screen):
         self.refresh()
 
     def KeyOk(self):
-        self.bitrate.stop()
         self.close()
 
     def getCPUInfo(self):
@@ -3890,19 +3885,8 @@ class XTInfo(Screen):
         del self.activityTimer
         del self.moniTimer
 
-    def refreshEvent(self):
-        self['vmin'].setText(self.bitrate.vmin)
-        self['vmax'].setText(self.bitrate.vmax)
-        self['vavg'].setText(self.bitrate.vavg)
-        self['vcur'].setText(self.bitrate.vcur)
-        self['amin'].setText(self.bitrate.amin)
-        self['amax'].setText(self.bitrate.amax)
-        self['aavg'].setText(self.bitrate.aavg)
-        self['acur'].setText(self.bitrate.acur)
 
     def keyCancel(self):
-        self.bitrate.stop()
-        print '[XTPanel] BITRATE VIEWER CLOSED DUE TO SYSINFO CLOSE'
         self.close()
 
     def bitrateStopped(self, retval):
