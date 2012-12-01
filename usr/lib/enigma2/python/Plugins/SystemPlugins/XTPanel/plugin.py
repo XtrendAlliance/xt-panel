@@ -1007,11 +1007,11 @@ class XTSubMenu(Screen):
 
     def runbackuphdd(self, result):
         if result:
-            self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/SystemPlugins/XTPanel/backup-hdd.sh'"])
+            self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])
 
     def runbackupusb(self, result):
         if result:
-            self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/SystemPlugins/XTPanel/backup-usb.sh'"])
+            self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-USB/backup.sh' en_EN"])
 
     def checkPanel(self):
         check = 0
