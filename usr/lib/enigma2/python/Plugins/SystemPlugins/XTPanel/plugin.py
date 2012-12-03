@@ -119,7 +119,7 @@ class XTMainMenu(Screen):
         self['key_green'] = StaticText(_('System Infos'))
         self['key_yellow'] = StaticText(_('System Tools'))
         self['key_blue'] = StaticText(_('Backup Tools'))
-        self.title = _('XTA')
+        self.title = _('XTA Panel')
         try:
             self['title'] = StaticText(self.title)
         except:
@@ -4904,7 +4904,7 @@ global_session = None
 
 def startXTmenu(menuid):
     if menuid == 'mainmenu':
-        return [(_('XTA'),
+        return [(_('XTA Panel'),
           main,
           'XTMainMenu',
           44)]
