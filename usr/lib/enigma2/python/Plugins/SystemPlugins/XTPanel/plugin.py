@@ -4920,9 +4920,9 @@ def Plugins(path, **kwargs):
     list = []
     plugin_path = path
     loadPluginSkin(plugin_path)
-    list.append(PluginDescriptor(name='XT Panel', description=_('Manage your XT Image'), icon='plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main))
+    list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main))
     list.append(PluginDescriptor(name='Remote Setup', description='', where=PluginDescriptor.WHERE_SESSIONSTART, fnc=RCstartup))
     list.append(PluginDescriptor(name='VFD setup', description='', where=PluginDescriptor.WHERE_SESSIONSTART, fnc=VFDstartup))
     list.append(PluginDescriptor(name='DVBNTP Time', description='', where=[PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc=DVBNTPautostart))
-    list.append(PluginDescriptor(name='XT Panel', description=_('Manage your XT Image'), icon='plugin.png', where=PluginDescriptor.WHERE_MENU, fnc=startXTmenu))
+    list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=PluginDescriptor.WHERE_MENU, fnc=startXTmenu))
     return list
