@@ -382,12 +382,6 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
              None,
              menuid))
-            self.list.append(('imagebackup',
-             _('Backup Image'),
-             _('Backup your running STB image to selected Device.'),
-             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
-             None,
-             menuid))
             self.title = _('Image Tools')
         elif self.menu == 3:
             menuid = 3
@@ -701,21 +695,7 @@ class XTSubMenu(Screen):
             elif currentEntry == 'install-image':
                 self.session.open(MessageBox, _('Menu ') + currentEntry + _(' not implemented yet\n\nPlease choose another one.'), MessageBox.TYPE_INFO, timeout=5)
             elif currentEntry == 'backup-image':
-                partitions = harddiskmanager.getMountedPartitions()
-                partitiondict = {}
-                for partition in partitions:
-                    partitiondict[partition.mountpoint] = partition
-
-                supported_filesystems = ['ext3',
-                 'ext2',
-                 'reiser',
-                 'reiser4',
-                 'vfat']
-                mountpoint = '/media/hdd'
-                if mountpoint in partitiondict.keys() and partitiondict[mountpoint].filesystem() in supported_filesystems:
-                    self.session.openWithCallback(self.runbackuphdd, MessageBox, _('Do you want to make a backup on HDD?') + ' ' + _('\nThis only takes 2 or 3 minutes'), MessageBox.TYPE_YESNO, timeout=20, default=True)
-                else:
-                    self.session.open(MessageBox, _('No valid Backupdestion found!!!! \n\nPlease install an Hard Disk first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
+                    self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])
             elif currentEntry == 'backup-usbimage':
                 partitions = harddiskmanager.getMountedPartitions()
                 partitiondict = {}
@@ -1005,10 +985,6 @@ class XTSubMenu(Screen):
             return ret
             out_line.close()
 
-    def runbackuphdd(self, result):
-        if result:
-            self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])
-
     def runbackupusb(self, result):
         if result:
             self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-USB/backup.sh' en_EN"])
@@ -1046,7 +1022,7 @@ class XTSubMenu(Screen):
 
     def runbackup(self, result):
         if result:
-            backupcommand = "sh -c 'build-usb-image.sh " + self.imagebackuplocation + " | tee /tmp/Imagebackup.log'"
+            backupcommand = "sh -c 'backup.sh " + self.imagebackuplocation + " | tee /tmp/Imagebackup.log'"
             self.session.open(Console, title=_('Full Image Backup to ') + ' ' + self.imagebackuplocation, cmdlist=[backupcommand])
             checkcmd = 'rm -f ' + self.imagebackuplocation + '/' + 'xtimagebackuplocationcheck'
             system(checkcmd)
