@@ -57,6 +57,11 @@ from DaemonsList import DaemonsList
 from Swap import Swap
 from Addons import AddonsFileBrowser
 from __init__ import _, loadPluginSkin
+from Plugins.SystemPlugins.XTPanel.Downloads import Downloads
+from Plugins.Extensions.Xtrend.plugin import XtrendMain
+############pcd start############
+from XTAddons import Addons
+############pcd end############
 config.plugins.xtpanel = ConfigSubsection()
 config.plugins.xtpanel.configurationbackup = ConfigSubsection()
 config.plugins.xtpanel.configurationbackup.backuplocation = ConfigText(default='/media/hdd/', visible_width=50, fixed_size=False)
@@ -117,8 +122,8 @@ class XTMainMenu(Screen):
         print resolveFilename(SCOPE_CURRENT_SKIN)
         self['key_red'] = StaticText(_('Close'))
         self['key_green'] = StaticText(_('System Infos'))
-        self['key_yellow'] = StaticText(_('System Tools'))
-        self['key_blue'] = StaticText(_('Backup Tools'))
+        self['key_yellow'] = StaticText(_('XT Forum Reader'))
+        self['key_blue'] = StaticText(_('XT Support Addons'))
         self.title = _('XTA Panel')
         try:
             self['title'] = StaticText(self.title)
@@ -234,10 +239,17 @@ class XTMainMenu(Screen):
         self.session.open(XTSubMenu, 4)
 
     def yellowPressed(self):
-        self.session.open(XTSubMenu, 3)
+        self.session.open(XtrendMain)
 
     def bluePressed(self):
-        self.session.open(XTSubMenu, 0)
+                tlist = []
+                #tlist.append((_("Check available memory (root)"), 0))
+		tlist.append((_("Download-install Xtrend Support addons"), 1))
+		#tlist.append((_("Manual install"), 2))
+		tlist.append((_("Restart Enigma2"), 3))
+		tlist.append((_("Remove installed Xtrend Support addons"), 4))
+		tlist.append((_("Exit"), 5))
+		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
 
     def cancel(self):
         self.close()
@@ -291,6 +303,7 @@ class XTSubMenu(Screen):
              None,
              menuid))
             self.title = _('Backup Tools')
+           
         elif self.menu == 1:
             menuid = 1
             self.list.append(('targz',
@@ -354,6 +367,7 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgskins.png')),
              None,
              menuid))
+         
             self.list.append(('ipkgothers',
              _('Show Other Packages'),
              _('Install, Update or Remove all available Other from Feed'),
@@ -361,6 +375,15 @@ class XTSubMenu(Screen):
              None,
              menuid))
             self.title = _('Manual Addon Installer')
+################pcd start################
+            self.list.append(('ipkgxt',
+             _('Show Xtrend Packages'),
+             _('Install or Remove available XT Support packages'),
+             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgpothers.png')),
+             None,
+             menuid))
+            self.title = _('Manual Addon Installer')
+################pcd end##################            
         elif self.menu == 2:
             menuid = 2
             if fileExists(resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/SoftwareManager/plugin.pyo')):
@@ -379,6 +402,12 @@ class XTSubMenu(Screen):
             self.list.append(('backup-usbimage',
              _('USB Backup Image'),
              _('Backup your running STB image to USB.'),
+             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
+             None,
+             menuid))
+            self.list.append(('imagebackup',
+             _('Backup Image'),
+             _('Backup your running STB image to selected Device.'),
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
              None,
              menuid))
@@ -683,6 +712,19 @@ class XTSubMenu(Screen):
                 cache_prefix = 'packetmanager-others.cache'
                 title_prefix = _('Install, Upgrade or Delete Other Packages')
                 self.session.open(XTPacketManager, self.skin_path, plugin_prefix, cache_prefix, title_prefix)
+##########pcd start###############
+            elif currentEntry == 'ipkgxt':
+                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
+                cache_prefix = 'packetmanager-others.cache'
+                title_prefix = _('Install, Delete Xtrend Support Packages')
+                tlist = []
+		tlist.append((_("Download-install Xtrend Support addons"), 1))
+		tlist.append((_("Restart Enigma2"), 3))
+		tlist.append((_("Remove installed Xtrend Support addons"), 4))
+		tlist.append((_("Exit"), 5))
+		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
+
+############pcd end################
             elif currentEntry == 'update-image':
                 if fileExists(resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/SoftwareManager/plugin.pyo')):
                     try:
@@ -695,7 +737,22 @@ class XTSubMenu(Screen):
             elif currentEntry == 'install-image':
                 self.session.open(MessageBox, _('Menu ') + currentEntry + _(' not implemented yet\n\nPlease choose another one.'), MessageBox.TYPE_INFO, timeout=5)
             elif currentEntry == 'backup-image':
-                    self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])
+##############################            
+                partitions = harddiskmanager.getMountedPartitions()
+                partitiondict = {}
+                for partition in partitions:
+                    partitiondict[partition.mountpoint] = partition
+
+                supported_filesystems = ['ext3',
+                 'ext2',
+                 'reiser',
+                 'reiser4',
+                 'vfat']
+                mountpoint = '/media/hdd'
+                if mountpoint in partitiondict.keys() and partitiondict[mountpoint].filesystem() in supported_filesystems:
+                    self.session.openWithCallback(self.runbackuphdd, MessageBox, _('Do you want to make a backup on HDD?') + ' ' + _('\nThis only takes 2 or 3 minutes'), MessageBox.TYPE_YESNO, timeout=20, default=True)
+                else:
+                    self.session.open(MessageBox, _('No valid Backupdestion found!!!! \n\nPlease install an Hard Disk first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
             elif currentEntry == 'backup-usbimage':
                 partitions = harddiskmanager.getMountedPartitions()
                 partitiondict = {}
@@ -985,6 +1042,10 @@ class XTSubMenu(Screen):
             return ret
             out_line.close()
 
+    def runbackuphdd(self, result):
+        if result:
+            self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])
+
     def runbackupusb(self, result):
         if result:
             self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-USB/backup.sh' en_EN"])
@@ -1022,7 +1083,7 @@ class XTSubMenu(Screen):
 
     def runbackup(self, result):
         if result:
-            backupcommand = "sh -c 'backup.sh " + self.imagebackuplocation + " | tee /tmp/Imagebackup.log'"
+            backupcommand = "sh -c 'build-usb-image.sh " + self.imagebackuplocation + " | tee /tmp/Imagebackup.log'"
             self.session.open(Console, title=_('Full Image Backup to ') + ' ' + self.imagebackuplocation, cmdlist=[backupcommand])
             checkcmd = 'rm -f ' + self.imagebackuplocation + '/' + 'xtimagebackuplocationcheck'
             system(checkcmd)
@@ -4902,3 +4963,11 @@ def Plugins(path, **kwargs):
     list.append(PluginDescriptor(name='DVBNTP Time', description='', where=[PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc=DVBNTPautostart))
     list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=PluginDescriptor.WHERE_MENU, fnc=startXTmenu))
     return list
+
+
+
+
+
+
+
+
