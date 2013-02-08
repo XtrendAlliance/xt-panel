@@ -39,8 +39,8 @@ class Addons(Screen):
                        self.skinName = "Downloads"
 
                 else:
-                     #  self.skin = Extramenu.skin 
-                      self.skinName = "Downloads-default"                              
+                       self.skin = Extramenu.skin 
+                      #self.skinName = "Downloads-default"                              
 		self["title"] = Label(_("XTA team plugins"))
 		self["text"] = Label(_("Please select"))                             
   		self.session = session
