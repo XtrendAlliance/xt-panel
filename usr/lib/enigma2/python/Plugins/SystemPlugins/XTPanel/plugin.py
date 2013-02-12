@@ -4964,7 +4964,7 @@ def Plugins(path, **kwargs):
     list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=PluginDescriptor.WHERE_MENU, fnc=startXTmenu))
     return list
 
-
+##### xtrendmaster changes ######
 
 
 
