@@ -58,7 +58,6 @@ from Swap import Swap
 from Addons import AddonsFileBrowser
 from __init__ import _, loadPluginSkin
 from Plugins.SystemPlugins.XTPanel.Downloads import Downloads
-from Plugins.Extensions.Xtrend.plugin import XtrendMain
 ############pcd start############
 from XTAddons import Addons
 ############pcd end############
@@ -238,8 +237,12 @@ class XTMainMenu(Screen):
     def greenPressed(self):
         self.session.open(XTSubMenu, 4)
 
-    def yellowPressed(self):
-        self.session.open(XtrendMain)
+    def yellowPressed(self):                
+       if not pathExists("/usr/lib/enigma2/python/Plugins/Extensions/Xtrend"):
+              self.session.open(MessageBox, _("Xtrend Forum Reader plugin is not installed\nPlease install it from XTA-Panel / XTsupport-Addons."), MessageBox.TYPE_ERROR, timeout = 10)
+
+       else: 
+              self.session.open(XtrendMain)
 
     def bluePressed(self):
                 tlist = []
