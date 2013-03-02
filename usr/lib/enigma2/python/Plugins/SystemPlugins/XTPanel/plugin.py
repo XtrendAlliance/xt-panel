@@ -238,11 +238,12 @@ class XTMainMenu(Screen):
         self.session.open(XTSubMenu, 4)
 
     def yellowPressed(self):                
-       if not pathExists("/usr/lib/enigma2/python/Plugins/Extensions/Xtrend"):
-              self.session.open(MessageBox, _("Xtrend Forum Reader plugin is not installed\nPlease install it from XTA-Panel / XTsupport-Addons."), MessageBox.TYPE_ERROR, timeout = 10)
-
-       else: 
+       try:
+              from Plugins.Extensions.Xtrend.plugin import XtrendMain 
               self.session.open(XtrendMain)
+       except: 
+              self.session.open(MessageBox, _("Xtrend Forum Reader plugin is not installed.Please install it from XTA-Panel / XTsupport-Addons."), MessageBox.TYPE_ERROR, timeout = 10)
+
 
     def bluePressed(self):
                 tlist = []
