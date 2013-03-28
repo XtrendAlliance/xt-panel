@@ -756,7 +756,7 @@ class XTSubMenu(Screen):
                 if mountpoint in partitiondict.keys() and partitiondict[mountpoint].filesystem() in supported_filesystems:
                     self.session.openWithCallback(self.runbackuphdd, MessageBox, _('Do you want to make a backup on HDD?') + ' ' + _('\nThis only takes 2 or 3 minutes'), MessageBox.TYPE_YESNO, timeout=20, default=True)
                 else:
-                    self.session.open(MessageBox, _('No valid Backupdestion found!!!! \n\nPlease install an Hard Disk first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
+                    self.session.open(MessageBox, _('No valid Backup destination found!!!! \n\nPlease install an Hard Disk first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
             elif currentEntry == 'backup-usbimage':
                 partitions = harddiskmanager.getMountedPartitions()
                 partitiondict = {}
@@ -772,7 +772,7 @@ class XTSubMenu(Screen):
                 if mountpoint in partitiondict.keys() and partitiondict[mountpoint].filesystem() in supported_filesystems:
                     self.session.openWithCallback(self.runbackupusb, MessageBox, _('Do you want to make a backup on USB?') + ' ' + _('\nThis only takes 2 or 3 minutes'), MessageBox.TYPE_YESNO, timeout=20, default=True)
                 else:
-                    self.session.open(MessageBox, _('No valid Backupdestion found!!!! \n\nPlease plugin an USB-Stick first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
+                    self.session.open(MessageBox, _('No valid Backup destination found!!!! \n\nPlease plugin an USB-Stick first to create Backups.'), MessageBox.TYPE_INFO, timeout=5)
             elif currentEntry == 'imagebackup':
                 parts = [ (r.description, r.mountpoint, self.session) for r in harddiskmanager.getMountedPartitions(onlyhotplug=False) ]
                 for x in parts:
