@@ -312,7 +312,7 @@ class XTSubMenu(Screen):
             menuid = 1
             self.list.append(('targz',
              _('Addon Installer Filebrowser'),
-             _('Install IPK, tar.gz, tgz, tar.bz2 and zip Packages'),
+             _('Install IPK, tar.gz, tgz, tar.bz2, zip and rar Packages'),
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/addoninstaller.png')),
              None,
              menuid))
