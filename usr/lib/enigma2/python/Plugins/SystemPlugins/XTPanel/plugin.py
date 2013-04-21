@@ -145,7 +145,7 @@ class XTMainMenu(Screen):
     def createMENUlist(self):
         self.mylist = []
         divpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'skin_default/div-h.png'))
-        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.py')):
+        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
             self.mylist.append((_('Cam Center'),
              'CamSelectMenu',
              _('select or install your favourite cam'),
@@ -190,7 +190,7 @@ class XTMainMenu(Screen):
             menu = cur[1]
             if menu == 'CamSelectMenu':
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
-                if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.py')):
+                if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
                     try:
                         from Plugins.PLi.SoftcamSetup import Sc
                     except ImportError:
@@ -328,7 +328,7 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgall.png')),
              None,
              menuid))
-            if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.py')):
+            if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
                 self.list.append(('ipkgcams',
                  _('Show CAM'),
                  _('Install, Update or Remove all available CAMs from Feed'),
@@ -3129,7 +3129,7 @@ class XTSetupCronConf(Screen, ConfigListScreen):
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/powerstate?newstate=2', _('reboot')))
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/powerstate?newstate=3', _('restart enigma2')))
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/remotecontrol?command=116', _('wakeup/switch from/to standby')))
-        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.py')):
+        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
             self.defaultcommandlist.append(('/etc/init.d/softcam restart', _('restart softcam')))
         self.default_command = NoSave(ConfigSelection(default='None', choices=self.defaultcommandlist))
         self.user_command = NoSave(ConfigText(fixed_size=False))
