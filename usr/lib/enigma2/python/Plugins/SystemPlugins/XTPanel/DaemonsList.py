@@ -33,10 +33,10 @@ def DaemonEntry(name, picture, description, started, installed):
         picture2 = '/usr/share/enigma2/skin_default/icons/lock_error.png'
     if fileExists(picture):
         res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 0), size=(48, 48), png=loadPNG(picture)))
-    res.append(MultiContentEntryText(pos=(65, 10), size=(135, 38), font=0, text=name))
-    res.append(MultiContentEntryText(pos=(210, 10), size=(280, 38), font=0, text=description))
+    res.append(MultiContentEntryText(pos=(70, 10), size=(135, 38), font=0, text=name))
+    res.append(MultiContentEntryText(pos=(220, 10), size=(400, 38), font=0, text=description))
     if fileExists(picture2):
-        res.append(MultiContentEntryPixmapAlphaTest(pos=(500, 10), size=(24, 24), png=loadPNG(picture2)))
+        res.append(MultiContentEntryPixmapAlphaTest(pos=(640, 10), size=(24, 24), png=loadPNG(picture2)))
     return res
 
 

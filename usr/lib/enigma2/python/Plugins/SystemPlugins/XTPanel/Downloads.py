@@ -46,11 +46,11 @@ class RSList(MenuList):
 
 def RSListEntry(download, state):
 	res = [(download)]
-	res.append(MultiContentEntryText(pos=(10, 0), size=(370, 25), font=0, text=download))
+	res.append(MultiContentEntryText(pos=(40, 0), size=(620, 25), font=0, text=download))
         if state == 0:
-              res.append(MultiContentEntryPixmapAlphaTest(pos=(600, 0), size=(50,30), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/green.png"))))
+              res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 6), size=(25,25), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/button_green.png"))))
         else:
-              res.append(MultiContentEntryPixmapAlphaTest(pos=(600, 0), size=(50,30), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/red.png"))))
+              res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 6), size=(25,25), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/button_red.png"))))
 
 	print "res =", res
         return res
