@@ -38,6 +38,9 @@ class Addons(Screen):
                       # self.skin = ItemList.skin
                        self.skinName = "Downloads"
 
+                elif dskin == "xta/skin.xml": 
+                       self.skinName = "Downloads"
+
                 else:
                        self.skin = Extramenu.skin 
                       #self.skinName = "Downloads-default"                              
