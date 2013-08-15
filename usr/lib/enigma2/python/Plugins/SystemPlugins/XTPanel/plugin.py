@@ -112,6 +112,14 @@ tdtautostart = _('DVB Time check autostart') + ': '
 transponderupdate = _('Enigma 2 Timeupdate') + ': '
 iface = None
 
+import gettext
+def _(txt):
+	t = gettext.dgettext("XTPanel", txt)
+	if t == txt:
+		print "[XTPanel] fallback to default translation for", txt
+		t = gettext.gettext(txt)
+	return t
+
 class XTMainMenu(Screen):
 
     def __init__(self, session, args = 0):
