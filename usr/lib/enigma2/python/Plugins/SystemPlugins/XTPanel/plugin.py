@@ -520,7 +520,7 @@ class XTSubMenu(Screen):
              None,
              menuid))
             self.list.append(('hauppagewintvstick',
-             _('Hauppage USB DVB-T Panel'),
+             _('Hauppauge USB DVB-T Panel'),
              _('Control your WinTV Nova Stick'),
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/hauppagewintvnova.png')),
              None,
