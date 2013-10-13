@@ -172,7 +172,7 @@ class XTMainMenu(Screen):
          divpng))
         self.mylist.append((_('Image Tools'),
          'ImageToolsMenu',
-         _('backup or update your image'),
+         _('backup /update your image or Flash a new image'),
          LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/imagetools.png')),
          divpng))
         self.mylist.append((_('Backup Tools'),
