@@ -11,6 +11,9 @@ from Downloads import Downloads
 from Downloads import Getipklist
 from Ipkinstall import Ipkinstall 
 from Ipkremove import Ipkremove
+###############pcd##############
+from Screens.XTplugs import *
+################################
 from Memory import Memory
 from skins import *
 from Screens.PluginBrowser import PluginBrowser, PluginDownloadBrowser
@@ -129,18 +132,15 @@ class Addons(Screen):
 	def goEntry(self, entry):
 		keys = [ "blue", "yellow", "green", "red", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]
                 if entry[1] == 0:
-                        self.session.open(Memory)
-                elif entry[1] == 1:
-                        self.session.open(Downloads)                        
- 		elif entry[1] == 2:
-			self.session.open(Ipkinstall)
-		elif entry[1] == 3:
+#######################pcd######################                 
+                        self.session.open(PluginBrowser2)
+		elif entry[1] == 1:
 			self.session.open(TryQuitMainloop,retvalue=3)
-		elif entry[1] == 4:
+		elif entry[1] == 2:
 			self.session.open(Ipkremove)
-		elif entry[1] == 5:
+		elif entry[1] == 3:
 			self.close()			
-			
+#################################################			
 	
 	# lookups a key in the keymap, then runs it
 	def goKey(self, key):
@@ -164,6 +164,11 @@ class Addons(Screen):
 	def cancel(self):
 		self.close(None)
 				
+
+
+
+
+
 
 
 

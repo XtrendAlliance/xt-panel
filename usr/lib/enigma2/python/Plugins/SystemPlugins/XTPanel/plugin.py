@@ -5,7 +5,8 @@ from Screens.Console import Console
 from Screens.NetworkSetup import NetworkAdapterSelection, NameserverSetup
 from Screens.MessageBox import MessageBox
 from Screens.InputBox import InputBox
-from Screens.PluginBrowser import *
+#from Screens.PluginBrowser import *
+from Screens.XTplugs import *
 from Screens.Ipkg import Ipkg
 from Screens.ServiceInfo import ServiceInfo
 from Screens.Screen import Screen
@@ -187,7 +188,7 @@ class XTMainMenu(Screen):
          divpng))
         self.mylist.append((_('Plugins'),
          'PluginBrowser',
-         _('open enigma2 Plugin Menu'),
+         _('open et-view-support Plugin Menu'),
          LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/addons.png')),
          None))
         self['list'].setList(self.mylist)
@@ -209,7 +210,7 @@ class XTMainMenu(Screen):
 
             elif menu == 'PluginBrowser':
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
-                self.session.open(PluginBrowser)
+                self.session.open(PluginBrowser2)
             elif menu == 'BackupToolsMenu':
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
                 self.session.open(XTSubMenu, 0)
@@ -255,14 +256,7 @@ class XTMainMenu(Screen):
 
 
     def bluePressed(self):
-                tlist = []
-                #tlist.append((_("Check available memory (root)"), 0))
-		tlist.append((_("Download-install Xtrend Support addons"), 1))
-		#tlist.append((_("Manual install"), 2))
-		tlist.append((_("Restart Enigma2"), 3))
-		tlist.append((_("Remove installed Xtrend Support addons"), 4))
-		tlist.append((_("Exit"), 5))
-		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
+              self.session.open(PluginBrowser2)
 
     def cancel(self):
         self.close()
