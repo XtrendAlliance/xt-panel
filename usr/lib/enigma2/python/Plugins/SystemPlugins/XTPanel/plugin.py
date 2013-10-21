@@ -383,13 +383,13 @@ class XTSubMenu(Screen):
              menuid))
             self.title = _('Manual Addon Installer')
 ################pcd start################
-            self.list.append(('ipkgxt',
-             _('Show Xtrend Packages'),
-             _('Install or Remove available XT Support packages'),
-             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgpothers.png')),
-             None,
-             menuid))
-            self.title = _('Manual Addon Installer')
+#            self.list.append(('ipkgxt',
+#             _('Show Xtrend Packages'),
+#             _('Install or Remove available XT Support packages'),
+#             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgpothers.png')),
+#             None,
+#             menuid))
+#            self.title = _('Manual Addon Installer')
 ################pcd end##################            
         elif self.menu == 2:
             menuid = 2
@@ -720,16 +720,16 @@ class XTSubMenu(Screen):
                 title_prefix = _('Install, Upgrade or Delete Other Packages')
                 self.session.open(XTPacketManager, self.skin_path, plugin_prefix, cache_prefix, title_prefix)
 ##########pcd start###############
-            elif currentEntry == 'ipkgxt':
-                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
-                cache_prefix = 'packetmanager-others.cache'
-                title_prefix = _('Install, Delete Xtrend Support Packages')
-                tlist = []
-		tlist.append((_("Download-install Xtrend Support addons"), 1))
-		tlist.append((_("Restart Enigma2"), 3))
-		tlist.append((_("Remove installed Xtrend Support addons"), 4))
-		tlist.append((_("Exit"), 5))
-		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
+#            elif currentEntry == 'ipkgxt':
+#                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
+#                cache_prefix = 'packetmanager-others.cache'
+#                title_prefix = _('Install, Delete Xtrend Support Packages')
+#                tlist = []
+#		tlist.append((_("Download-install Xtrend Support addons"), 1))
+#		tlist.append((_("Restart Enigma2"), 3))
+#		tlist.append((_("Remove installed Xtrend Support addons"), 4))
+#		tlist.append((_("Exit"), 5))
+#		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
 
 ############pcd end################
             elif currentEntry == 'update-image':
