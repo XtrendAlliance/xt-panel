@@ -60,6 +60,7 @@ from Addons import AddonsFileBrowser
 from __init__ import _, loadPluginSkin
 from Plugins.SystemPlugins.XTPanel.Downloads import Downloads
 from Plugins.SystemPlugins.SoftwareManager.Flash_online import FlashOnline
+from Plugins.SystemPlugins.SoftwareManager.ImageBackup import ImageBackup
 ############pcd start############
 from XTAddons import Addons
 ############pcd end############
@@ -401,17 +402,17 @@ class XTSubMenu(Screen):
                  None,
                  menuid))
             self.list.append(('backup-image',
-             _('HDD Backup Image'),
-             _('Backup your running STB image to HDD.'),
+             _('Backup Image'),
+             _('Backup your running STB image to HDD/USB.'),
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
              None,
              menuid))
-            self.list.append(('backup-usbimage',
-             _('USB Backup Image'),
-             _('Backup your running STB image to USB.'),
-             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
-             None,
-             menuid))
+           # self.list.append(('backup-usbimage',
+            # _('USB Backup Image'),
+            # _('Backup your running STB image to USB.'),
+            # LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
+             #None,
+             #menuid))
             self.list.append(('flash-online',
              _('Flash Online'),
              _('Flash on the fly your receiver.'),
@@ -743,9 +744,11 @@ class XTSubMenu(Screen):
 
             elif currentEntry == 'install-image':
                 self.session.open(MessageBox, _('Menu ') + currentEntry + _(' not implemented yet\n\nPlease choose another one.'), MessageBox.TYPE_INFO, timeout=5)
+				
             elif currentEntry == 'backup-image':
+			    self.session.open(ImageBackup)
 			
-                  self.session.open(Console, title=_('Full Backup to HDD'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-HDD/backup.sh' en_EN"])			
+           			
             elif currentEntry == 'backup-usbimage':
                 partitions = harddiskmanager.getMountedPartitions()
                 partitiondict = {}
@@ -1038,9 +1041,9 @@ class XTSubMenu(Screen):
             out_line.close()
 
   
-    def runbackupusb(self, result):
-        if result:
-            self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/Extensions/BackupSuite-USB/backup.sh' en_EN"])
+    #def runbackupusb(self, result):
+       # if result:
+           # self.session.open(Console, title=_('Full Backup to USB'), cmdlist=["sh '/usr/lib/enigma2/python/Plugins/SystemPlugins/SoftwareManager/ImageBackup.pyo])
 
     def checkPanel(self):
         check = 0
