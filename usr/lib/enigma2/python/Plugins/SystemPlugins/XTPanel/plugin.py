@@ -59,7 +59,7 @@ from Swap import Swap
 from Addons import AddonsFileBrowser
 from __init__ import _, loadPluginSkin
 from Plugins.SystemPlugins.XTPanel.Downloads import Downloads
-from Plugins.SystemPlugins.SoftwareManager.Flash_online import FlashOnline
+from Plugins.SystemPlugins.SoftwareManager.Flash_online import FlashOnline, doFlashImage, check_hdd
 from Plugins.SystemPlugins.SoftwareManager.ImageBackup import ImageBackup
 ############pcd start############
 from XTAddons import Addons
@@ -416,6 +416,12 @@ class XTSubMenu(Screen):
             self.list.append(('flash-online',
              _('Flash Online'),
              _('Flash on the fly your receiver.'),
+             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
+             None,
+             menuid))
+            self.list.append(('restore-image',
+             _('Restore Image'),
+             _('Flash on the fly local backup.'),
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/backupimage.png')),
              None,
              menuid))
@@ -779,6 +785,9 @@ class XTSubMenu(Screen):
                     self.session.openWithCallback(self.imagebackuplocation_choosen, ChoiceBox, title=_('Please select Device where the Imagebackup will be created'), list=parts)
             elif currentEntry == 'flash-online':
                 self.session.open(FlashOnline);
+            elif currentEntry == 'restore-image':
+                if check_hdd(self.session):
+                    self.session.open(doFlashImage, online = False);
             elif currentEntry == 'AVSettings':
                 if fileExists(resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/Videomode/plugin.pyo')):
                     try:
