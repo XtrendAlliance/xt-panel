@@ -84,15 +84,13 @@ modelist = {'0': _('None'),
  '1': _('Nova WinTV')}
 config.plugins.USBTunerSetup = ConfigSubsection()
 config.plugins.USBTunerSetup.mode1 = ConfigSelection(choices=modelist, default='0')
-rcmodelist = {'11': _('et9x00'),
- '5': _('et9000'),
- '9': _('et9500'),
- '13': _('et4000'),
- '6': _('et6500'),
- '5': _('et9200'),
- '7': _('DMM Model')}
+rcmodelist = {'5': _('ET 9000 / 9200'),
+ '9': _('ET 6500 / 9500'),
+ '13': _('ET 4000'),
+ '7': _('ET 5000 / 6000'),
+ '11': _('ET Multi...')}
 config.plugins.RCSetup = ConfigSubsection()
-config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default=getboxtype())
+config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='5')
 vfdmodelist = {'0': _('No'),
  '1': _('Yes')}
 repeatlist = {'0': _('Cont.'),
@@ -122,23 +120,6 @@ def _(txt):
                 print "[XTPanel] fallback to default translation for", txt
                 t = gettext.gettext(txt)
         return t
-		
-def getboxtype():
-	boxtype = open("/proc/stb/info/boxtype", "r").readline().strip()
-	rctype = " "
-	if boxtype == "et4000":
-		rctype = "13"
-	elif boxtype == "et9500":
-		rctype = "9"
-	elif boxtype == "et9000" or boxtype == "et9200":
-		rctype = "5"
-	elif boxtype == "et6500":
-		rctype = "6"
-	elif boxtype == "et5000" or boxtype == "et6000":
-		rctype = "7"
-	else:
-		rctype = "11"
-	return rctype
 
 class XTMainMenu(Screen):
 
