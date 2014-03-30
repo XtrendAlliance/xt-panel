@@ -9,7 +9,7 @@ class AboutTeam(Screen):
 
     def __init__(self, session, args = 0):
         Screen.__init__(self, session)
-        abouttxt = '\nXtrend Support Team:\n\n- babsy98, xtrendmaster(Developers)\n- xtrendmaster (Graphics and Skin) \n\n-Betatesting:\n master, biki3, teckl, csm, vulcano5766, matrix64.\n\nFurther credits goes to:\n pcd, dima73, mogli123, black64.\n xtrendboss for his constant support.\n\n- OpenPli\n- openVix\n- openAAF\n- OE-Alliance\n'
+        abouttxt = '\nXtrend Support Team:\n\n- babsy98, xtrendmaster(Developers), Bobsilvio (dev for v4.0)\n- xtrendmaster (Graphics and Skin) \n\n-Betatesting:\n master, biki3, teckl, csm, vulcano5766, matrix64.\n\nFurther credits goes to:\n pcd, dima73, mogli123, black64.\n xtrendboss for his constant support.\n\n- OpenPli\n- openVix\n- openAAF\n- OE-Alliance\n'
         self['about'] = Label(abouttxt)
         self['actions'] = ActionMap(['OkCancelActions', 'ColorActions'], {'cancel': self.quit}, -2)
 
