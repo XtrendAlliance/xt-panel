@@ -1,4 +1,4 @@
-﻿from Screens.About import About
+from Screens.About import About
 from Screens.ChannelSelection import *
 from Screens.ChoiceBox import ChoiceBox
 from Screens.Console import Console
@@ -84,13 +84,15 @@ modelist = {'0': _('None'),
  '1': _('Nova WinTV')}
 config.plugins.USBTunerSetup = ConfigSubsection()
 config.plugins.USBTunerSetup.mode1 = ConfigSelection(choices=modelist, default='0')
-rcmodelist = {'5': _('ET 9000 / 9200'),
- '9': _('ET 6500 / 9500'),
- '13': _('ET 4000'),
- '7': _('ET 5000 / 6000'),
- '11': _('ET Multi...')}
+rcmodelist = {'11': _('et9x00'),
+ '5': _('et9000'),
+ '9': _('et9500'),
+ '13': _('et4000'),
+ '6': _('et6500'),
+ '5': _('et9200'),
+ '7': _('DMM Model')}
 config.plugins.RCSetup = ConfigSubsection()
-config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='5')
+config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='11')
 vfdmodelist = {'0': _('No'),
  '1': _('Yes')}
 repeatlist = {'0': _('Cont.'),
@@ -115,11 +117,11 @@ iface = None
 
 import gettext
 def _(txt):
-        t = gettext.dgettext("XTPanel", txt)
-        if t == txt:
-                print "[XTPanel] fallback to default translation for", txt
-                t = gettext.gettext(txt)
-        return t
+	t = gettext.dgettext("XTPanel", txt)
+	if t == txt:
+		print "[XTPanel] fallback to default translation for", txt
+		t = gettext.gettext(txt)
+	return t
 
 class XTMainMenu(Screen):
 
@@ -246,11 +248,11 @@ class XTMainMenu(Screen):
     def greenPressed(self):
         self.session.open(XTSubMenu, 4)
 
-    def yellowPressed(self):
+    def yellowPressed(self):                
        try:
-              from Plugins.Extensions.Xtrend.plugin import XtrendMain
+              from Plugins.Extensions.Xtrend.plugin import XtrendMain 
               self.session.open(XtrendMain)
-       except:
+       except: 
               self.session.open(MessageBox, _("Xtrend Forum Reader plugin is not installed.Please install it from XTA-Panel / XTsupport-Addons."), MessageBox.TYPE_ERROR, timeout = 10)
 
 
@@ -382,14 +384,14 @@ class XTSubMenu(Screen):
              menuid))
             self.title = _('Manual Addon Installer')
 ################pcd start################
-# self.list.append(('ipkgxt',
-# _('Show Xtrend Packages'),
-# _('Install or Remove available XT Support packages'),
-# LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgpothers.png')),
-# None,
-# menuid))
-# self.title = _('Manual Addon Installer')
-################pcd end##################
+#            self.list.append(('ipkgxt',
+#             _('Show Xtrend Packages'),
+#             _('Install or Remove available XT Support packages'),
+#             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgpothers.png')),
+#             None,
+#             menuid))
+#            self.title = _('Manual Addon Installer')
+################pcd end##################            
         elif self.menu == 2:
             menuid = 2
             if fileExists(resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/SoftwareManager/plugin.pyo')):
@@ -725,16 +727,16 @@ class XTSubMenu(Screen):
                 title_prefix = _('Install, Upgrade or Delete Other Packages')
                 self.session.open(XTPacketManager, self.skin_path, plugin_prefix, cache_prefix, title_prefix)
 ##########pcd start###############
-# elif currentEntry == 'ipkgxt':
-# plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
-# cache_prefix = 'packetmanager-others.cache'
-# title_prefix = _('Install, Delete Xtrend Support Packages')
-# tlist = []
-#                tlist.append((_("Download-install Xtrend Support addons"), 1))
-#                tlist.append((_("Restart Enigma2"), 3))
-#                tlist.append((_("Remove installed Xtrend Support addons"), 4))
-#                tlist.append((_("Exit"), 5))
-#                self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
+#            elif currentEntry == 'ipkgxt':
+#                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
+#                cache_prefix = 'packetmanager-others.cache'
+#                title_prefix = _('Install, Delete Xtrend Support Packages')
+#                tlist = []
+#		tlist.append((_("Download-install Xtrend Support addons"), 1))
+#		tlist.append((_("Restart Enigma2"), 3))
+#		tlist.append((_("Remove installed Xtrend Support addons"), 4))
+#		tlist.append((_("Exit"), 5))
+#		self.session.open(Addons, title= (_("Xtrend Support Addon Manager")) , list = tlist)
 
 ############pcd end################
             elif currentEntry == 'update-image':
@@ -748,11 +750,11 @@ class XTSubMenu(Screen):
 
             elif currentEntry == 'install-image':
                 self.session.open(MessageBox, _('Menu ') + currentEntry + _(' not implemented yet\n\nPlease choose another one.'), MessageBox.TYPE_INFO, timeout=5)
-                                
+				
             elif currentEntry == 'backup-image':
-                         self.session.open(ImageBackup)
-                        
-                                   
+			    self.session.open(ImageBackup)
+			
+           			
             elif currentEntry == 'backup-usbimage':
                 partitions = harddiskmanager.getMountedPartitions()
                 partitiondict = {}
@@ -2774,7 +2776,7 @@ class XTDVBNTPTime(Screen):
 
 
 class NTPStartup(Screen):
-    skin = '\n <screen position="center,center" size="400,300" title=" " >\n </screen>'
+    skin = '\n        <screen position="center,center" size="400,300" title=" " >\n        </screen>'
 
     def __init__(self, session):
         self.skin = NTPStartup.skin
@@ -2810,7 +2812,7 @@ class NTPStartup(Screen):
 
 
 class XTDVBNTPTimeStartup(Screen):
-    skin = '\n <screen position="center,center" size="400,300" title=" " >\n </screen>'
+    skin = '\n        <screen position="center,center" size="400,300" title=" " >\n        </screen>'
 
     def __init__(self, session):
         self.skin = XTDVBNTPTimeStartup.skin
@@ -3094,7 +3096,7 @@ class XTCronMang(Screen):
 
             f.close()
             out.close()
-            rc = system('crontab /etc/cron/crontabs/root.helper -c /etc/cron/crontabs/')
+            rc = system('crontab /etc/cron/crontabs/root.helper  -c /etc/cron/crontabs/')
             rc = system('/etc/init.d/busybox-cron stop')
             rc = system('/etc/init.d/busybox-cron start')
             self.updateList()
@@ -3217,7 +3219,7 @@ class XTSetupCronConf(Screen, ConfigListScreen):
             f.close()
         out.write(newcron)
         out.close()
-        rc = system('crontab /etc/cron/crontabs/root.helper -c /etc/cron/crontabs/')
+        rc = system('crontab /etc/cron/crontabs/root.helper  -c /etc/cron/crontabs/')
         rc = system('/etc/init.d/busybox-cron stop')
         rc = system('/etc/init.d/busybox-cron start')
         self.close()
@@ -3890,7 +3892,7 @@ class XTInfo(Screen):
                 strview2 = ''
                 if len(parts) == 3:
                     strview2 = ' ' + parts[2]
-                mytext += strview + ': ' + parts[1] + strview2 + '\n'
+                mytext += strview + ':  ' + parts[1] + strview2 + '\n'
                 count += 1
                 if count == 9:
                     break
@@ -4138,7 +4140,7 @@ class ECMBluePanel(Screen):
         self.populate_List()
         self['list'] = MenuList(self.emlist)
         totcam = str(len(self.emlist))
-        self['lab1'].setText(totcam + ' CAMs Installed')
+        self['lab1'].setText(totcam + '   CAMs Installed')
         self.onShow.append(self.updateBP)
         self['myactions'] = ActionMap(['OkCancelActions', 'DirectionActions'], {'ok': self.keyOk,
          'cancel': self.close,
@@ -4212,7 +4214,7 @@ class ECMBluePanel(Screen):
                         mytext = mytext + line + '\n'
 
                 f.close()
-            mytext = len(mytext) < 5 and '\n\n Ecm Info not available.'
+            mytext = len(mytext) < 5 and '\n\n    Ecm Info not available.'
         self['activecam'].setText(curCamname)
         self['Ecmtext'].setText(mytext)
 
@@ -4438,7 +4440,7 @@ class XTPacketManager(Screen, NumericalTextInput):
 
                     supported_filesystems = ['ext4',
                      'ext2',
-                                         'ext3',
+					 'ext3',
                      'reiser',
                      'reiser4']
                     self.piconlist = []
