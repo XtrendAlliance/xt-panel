@@ -84,15 +84,15 @@ modelist = {'0': _('None'),
  '1': _('Nova WinTV')}
 config.plugins.USBTunerSetup = ConfigSubsection()
 config.plugins.USBTunerSetup.mode1 = ConfigSelection(choices=modelist, default='0')
-rcmodelist = {'11': _('et9x00'),
- '5': _('et9000'),
- '9': _('et9500'),
- '13': _('et4000'),
- '6': _('et6500'),
+rcmodelist = {'5': _('et9000'),
  '5': _('et9200'),
- '7': _('DMM Model')}
+ '6': _('et6500'),
+ '7': _('DMM Model'),
+ '9': _('et9500'),
+ '11': _('et9x00'),
+ '13': _('et4000')}
 config.plugins.RCSetup = ConfigSubsection()
-config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='11')
+config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='')
 vfdmodelist = {'0': _('No'),
  '1': _('Yes')}
 repeatlist = {'0': _('Cont.'),
@@ -4969,7 +4969,6 @@ def Plugins(path, **kwargs):
     return list
 
 ##### xtrendmaster changes ######
-
 
 
 
