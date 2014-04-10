@@ -84,15 +84,15 @@ modelist = {'0': _('None'),
  '1': _('Nova WinTV')}
 config.plugins.USBTunerSetup = ConfigSubsection()
 config.plugins.USBTunerSetup.mode1 = ConfigSelection(choices=modelist, default='0')
-rcmodelist = {'5': _('et9000'),
- '5': _('et9200'),
- '6': _('et6500'),
- '7': _('DMM Model'),
+rcmodelist = {'11': _('et9x00'),
+ '5': _('et9000'),
  '9': _('et9500'),
- '11': _('et9x00'),
- '13': _('et4000')}
-config.plugins.RCSetup = ConfigSubsection()
-config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='')
+ '13': _('et4000'),
+ '6': _('et6500'),
+ '5': _('et9200'),
+ '7': _('DMM Model')}
+#config.plugins.RCSetup = ConfigSubsection()
+#config.plugins.RCSetup.mode = ConfigSelection(choices=rcmodelist, default='11')
 vfdmodelist = {'0': _('No'),
  '1': _('Yes')}
 repeatlist = {'0': _('Cont.'),
@@ -533,12 +533,12 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/hauppagewintvnova.png')),
              None,
              menuid))
-            self.list.append(('rcmodesetup',
-             _('Remote Control Setup'),
-             _('Choice your Remote Control Model'),
-             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/rcmode.png')),
-             None,
-             menuid))
+#            self.list.append(('rcmodesetup',
+#             _('Remote Control Setup'),
+#             _('Choice your Remote Control Model'),
+#             LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/rcmode.png')),
+#             None,
+#             menuid))
             self.list.append(('vfdmodesetup',
              _('VFD Control Setup'),
              _('Control your VFD'),
@@ -877,8 +877,8 @@ class XTSubMenu(Screen):
                 self.session.open(SundtekControlCenter)
             elif currentEntry == 'hauppagewintvstick':
                 self.session.open(USBTunerSetupScreen)
-            elif currentEntry == 'rcmodesetup':
-                self.session.open(RCSetupScreen)
+#            elif currentEntry == 'rcmodesetup':
+ #               self.session.open(RCSetupScreen)
             elif currentEntry == 'vfdmodesetup':
                 self.session.open(VFDSetupScreen)
             elif currentEntry == 'disksetup':
@@ -4840,7 +4840,7 @@ def applyRCSettings(mode):
 
 
 def setConfiguredSettings():
-    applyRCSettings(int(config.plugins.RCSetup.mode.value))
+   applyRCSettings(int(config.plugins.RCSetup.mode.value))
 
 
 def RCstartup(reason, **kwargs):
@@ -4962,7 +4962,7 @@ def Plugins(path, **kwargs):
     plugin_path = path
     loadPluginSkin(plugin_path)
     list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU], fnc=main))
-    list.append(PluginDescriptor(name='Remote Setup', description='', where=PluginDescriptor.WHERE_SESSIONSTART, fnc=RCstartup))
+#    list.append(PluginDescriptor(name='Remote Setup', description='', where=PluginDescriptor.WHERE_SESSIONSTART, fnc=RCstartup))
     list.append(PluginDescriptor(name='VFD setup', description='', where=PluginDescriptor.WHERE_SESSIONSTART, fnc=VFDstartup))
     list.append(PluginDescriptor(name='DVBNTP Time', description='', where=[PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc=DVBNTPautostart))
     list.append(PluginDescriptor(name='XTA Panel', description=_('Manage your XT Image'), icon='plugin.png', where=PluginDescriptor.WHERE_MENU, fnc=startXTmenu))
