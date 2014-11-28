@@ -156,7 +156,7 @@ class XTMainMenu(Screen):
     def createMENUlist(self):
         self.mylist = []
         divpng = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, 'skin_default/div-h.png'))
-        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
+        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/Extensions/XtrendCamCenter/plugin.pyo')):
             self.mylist.append((_('Cam Center'),
              'CamSelectMenu',
              _('select or install your favourite cam'),
@@ -201,13 +201,13 @@ class XTMainMenu(Screen):
             menu = cur[1]
             if menu == 'CamSelectMenu':
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
-                if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
+                if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/Extensions/XtrendCamCenter/plugin.pyo')):
                     try:
-                        from Plugins.PLi.SoftcamSetup import Sc
+                        from Plugins.Extensions.AtemioCamCenter.plugin import main
                     except ImportError:
-                        self.session.open(MessageBox, _('The Softcamsetup Plugin is not installed!\nPlease install it.'), type=MessageBox.TYPE_INFO, timeout=10)
+                        self.session.open(MessageBox, _('The Xtrend Cam Center is not installed!\nPlease install it.'), type=MessageBox.TYPE_INFO, timeout=10)
                     else:
-                        self.session.open(Sc.ScNewSelection)
+                        main(self.session)
 
             elif menu == 'PluginBrowser':
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
