@@ -332,13 +332,6 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgall.png')),
              None,
              menuid))
-            if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
-                self.list.append(('ipkgcams',
-                 _('Show CAM'),
-                 _('Install, Update or Remove all available CAMs from Feed'),
-                 LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/ipkgcam.png')),
-                 None,
-                 menuid))
             self.list.append(('ipkgpicons',
              _('Show Picons'),
              _('Install, Update or Remove all available Picons from Feed'),
@@ -489,13 +482,6 @@ class XTSubMenu(Screen):
              LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/kernel.png')),
              None,
              menuid))
-            if fileExists(resolveFilename(SCOPE_PLUGINS, 'PLi/NFSServer/plugin.pyo')):
-                self.list.append(('nfsserver',
-                 _('NFS-Server Panel'),
-                 _('enable/disable and configure NFS-Server'),
-                 LoadPixmap(cached=True, path=resolveFilename(SCOPE_PLUGINS, 'SystemPlugins/XTPanel/pictures/nfsserver.png')),
-                 None,
-                 menuid))
             if fileExists('/usr/sbin/openvpn'):
                 self.list.append(('openvpn',
                  _('OpenVPN-Server Panel'),
@@ -722,7 +708,7 @@ class XTSubMenu(Screen):
                 title_prefix = _('Install, Upgrade or Delete Skins')
                 self.session.open(XTPacketManager, self.skin_path, plugin_prefix, cache_prefix, title_prefix)
             elif currentEntry == 'ipkgothers':
-                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp', 'enigma2-plugin-pli')
+                plugin_prefix = ('enigma2-plugin-others', 'ntp', 'openvpn', 'enigma2-plugin-security', 'enigma2-plugin-upnp')
                 cache_prefix = 'packetmanager-others.cache'
                 title_prefix = _('Install, Upgrade or Delete Other Packages')
                 self.session.open(XTPacketManager, self.skin_path, plugin_prefix, cache_prefix, title_prefix)
@@ -850,15 +836,6 @@ class XTSubMenu(Screen):
 
             elif currentEntry == 'kernel':
                 self.session.open(XTKernelModules)
-            elif currentEntry == 'nfsserver':
-                if fileExists(resolveFilename(SCOPE_PLUGINS, 'PLi/NFSServer/plugin.pyo')):
-                    try:
-                        from Plugins.PLi.NFSServer.plugin import NFSServerSetup
-                    except ImportError:
-                        self.session.open(MessageBox, _('The NFSServer Plugin is not installed!\nPlease install it.'), type=MessageBox.TYPE_INFO, timeout=10)
-                    else:
-                        self.session.open(NFSServerSetup)
-
             elif currentEntry == 'openvpn':
                 self.session.open(XTOpenvpn)
             elif currentEntry == 'passwd':
@@ -3129,8 +3106,6 @@ class XTSetupCronConf(Screen, ConfigListScreen):
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/powerstate?newstate=2', _('reboot')))
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/powerstate?newstate=3', _('restart enigma2')))
         self.defaultcommandlist.append(('wget -q -O - http://127.0.0.1/web/remotecontrol?command=116', _('wakeup/switch from/to standby')))
-        if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/PLi/SoftcamSetup/plugin.pyo')):
-            self.defaultcommandlist.append(('/etc/init.d/softcam restart', _('restart softcam')))
         self.default_command = NoSave(ConfigSelection(default='None', choices=self.defaultcommandlist))
         self.user_command = NoSave(ConfigText(fixed_size=False))
         self.cmdtime.value = mytmpt = [0, 0]
