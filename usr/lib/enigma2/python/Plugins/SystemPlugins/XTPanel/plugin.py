@@ -203,7 +203,7 @@ class XTMainMenu(Screen):
                 print '[XTPanel] open menu %s linked to %s ' % (menu, name)
                 if fileExists(resolveFilename(SCOPE_PLUGINS, '/usr/lib/enigma2/python/Plugins/Extensions/XtrendCamCenter/plugin.pyo')):
                     try:
-                        from Plugins.Extensions.AtemioCamCenter.plugin import main
+                        from Plugins.Extensions.XtrendCamCenter.plugin import main
                     except ImportError:
                         self.session.open(MessageBox, _('The Xtrend Cam Center is not installed!\nPlease install it.'), type=MessageBox.TYPE_INFO, timeout=10)
                     else:
